@@ -56,9 +56,19 @@ func modifyRequest(request *http.Request) *http.Request {
 	// for information on the fields/values required for this
 	bodyString = regexFindAndReplace(bodyString, "\"11\":\"0\"", "\"11\":\"1\"")
 	bodyString = regexFindAndReplace(bodyString, "\"31\":\"0\"", "\"31\":\"1\"")
-	bodyString = regexFindAndReplace(bodyString, "\"12\":\"[0-4]\"", "\"12\":\"4\"")
-	bodyString = regexFindAndReplace(bodyString, "\"13\":\"[0-3]\"", "\"13\":\"3\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"[0-5]\"", "\"30\":\"5\"")
+	bodyString = regexFindAndReplace(bodyString, "\"12\":\"0\"", "\"12\":\"4\"")
+	bodyString = regexFindAndReplace(bodyString, "\"12\":\"1\"", "\"12\":\"4\"")
+	bodyString = regexFindAndReplace(bodyString, "\"12\":\"2\"", "\"12\":\"4\"")
+	bodyString = regexFindAndReplace(bodyString, "\"12\":\"3\"", "\"12\":\"4\"")
+	bodyString = regexFindAndReplace(bodyString, "\"13\":\"0\"", "\"13\":\"3\"")
+	bodyString = regexFindAndReplace(bodyString, "\"13\":\"1\"", "\"13\":\"3\"")
+	bodyString = regexFindAndReplace(bodyString, "\"13\":\"2\"", "\"13\":\"3\"")
+	bodyString = regexFindAndReplace(bodyString, "\"30\":\"0\"", "\"30\":\"5\"")
+	bodyString = regexFindAndReplace(bodyString, "\"30\":\"1\"", "\"30\":\"5\"")
+	bodyString = regexFindAndReplace(bodyString, "\"30\":\"2\"", "\"30\":\"5\"")
+	bodyString = regexFindAndReplace(bodyString, "\"30\":\"3\"", "\"30\":\"5\"")
+	bodyString = regexFindAndReplace(bodyString, "\"30\":\"4\"", "\"30\":\"5\"")
+
 
 	modifiedBodyBuffer := bytes.NewBufferString(bodyString)
 
