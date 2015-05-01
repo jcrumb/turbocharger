@@ -25,3 +25,7 @@ Details on the fields in this object and what the values represent can be found 
 
 The aim of this proxy is to simplify adding the performance parts to your car. If that's all you need to do, there's no need to proxy and modify
 the request yourself via charles or some other locally installed proxy software. 
+
+# Build/Self Hosting
+
+Assuming you have a working install of golang, all you need to do is `go get github.com/jcrumb/turbocharger`.
