@@ -13,7 +13,7 @@ GTA Online HTTP Proxy for full armour, tune, brakes, and turbo regardless of lev
 
 # Troubleshooting
 If you don't receive a notification after a couple minutes, there may have been a problem processing your order.
-this happens most often when using the app for the first time. Turn off the proxy, change a plate on one of your cars first and after that
+This happens most often when using the app for the first time. Turn off the proxy, change a plate on one of your cars first and after that
 order goes through, turn it back on and change again.
 
 # How it works
@@ -24,4 +24,4 @@ on the client, meaning that if you can modify the request before it hits the ser
 Details on the fields in this object and what the values represent can be found [here](https://docs.google.com/spreadsheet/ccc?key=0AixUkyNxN55gdF83LWI1MVFaeE9CY0ptdFEyYVFPV3c&usp=sharing#gid=0)
 
 The aim of this proxy is to simplify adding the performance parts to your car. If that's all you need to do, there's no need to proxy and modify
-the request yourself via charles or some other locally install proxy software. 
+the request yourself via charles or some other locally installed proxy software. 
