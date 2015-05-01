@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 )
 
 func main() {
@@ -54,21 +55,20 @@ func modifyRequest(request *http.Request) *http.Request {
 	// Add armour, full ecu tune, brakes, and turbo
 	// See https://docs.google.com/a/toxicedge.com/spreadsheet/ccc?key=0AixUkyNxN55gdF83LWI1MVFaeE9CY0ptdFEyYVFPV3c&usp=sharing#gid=0
 	// for information on the fields/values required for this
-	bodyString = regexFindAndReplace(bodyString, "\"11\":\"0\"", "\"11\":\"1\"")
-	bodyString = regexFindAndReplace(bodyString, "\"31\":\"0\"", "\"31\":\"1\"")
-	bodyString = regexFindAndReplace(bodyString, "\"12\":\"0\"", "\"12\":\"4\"")
-	bodyString = regexFindAndReplace(bodyString, "\"12\":\"1\"", "\"12\":\"4\"")
-	bodyString = regexFindAndReplace(bodyString, "\"12\":\"2\"", "\"12\":\"4\"")
-	bodyString = regexFindAndReplace(bodyString, "\"12\":\"3\"", "\"12\":\"4\"")
-	bodyString = regexFindAndReplace(bodyString, "\"13\":\"0\"", "\"13\":\"3\"")
-	bodyString = regexFindAndReplace(bodyString, "\"13\":\"1\"", "\"13\":\"3\"")
-	bodyString = regexFindAndReplace(bodyString, "\"13\":\"2\"", "\"13\":\"3\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"0\"", "\"30\":\"5\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"1\"", "\"30\":\"5\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"2\"", "\"30\":\"5\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"3\"", "\"30\":\"5\"")
-	bodyString = regexFindAndReplace(bodyString, "\"30\":\"4\"", "\"30\":\"5\"")
-
+	bodyString = findAndReplace(bodyString, "\"11\":\"0\"", "\"11\":\"1\"")
+	bodyString = findAndReplace(bodyString, "\"31\":\"0\"", "\"31\":\"1\"")
+	bodyString = findAndReplace(bodyString, "\"12\":\"0\"", "\"12\":\"4\"")
+	bodyString = findAndReplace(bodyString, "\"12\":\"1\"", "\"12\":\"4\"")
+	bodyString = findAndReplace(bodyString, "\"12\":\"2\"", "\"12\":\"4\"")
+	bodyString = findAndReplace(bodyString, "\"12\":\"3\"", "\"12\":\"4\"")
+	bodyString = findAndReplace(bodyString, "\"13\":\"0\"", "\"13\":\"3\"")
+	bodyString = findAndReplace(bodyString, "\"13\":\"1\"", "\"13\":\"3\"")
+	bodyString = findAndReplace(bodyString, "\"13\":\"2\"", "\"13\":\"3\"")
+	bodyString = findAndReplace(bodyString, "\"30\":\"0\"", "\"30\":\"5\"")
+	bodyString = findAndReplace(bodyString, "\"30\":\"1\"", "\"30\":\"5\"")
+	bodyString = findAndReplace(bodyString, "\"30\":\"2\"", "\"30\":\"5\"")
+	bodyString = findAndReplace(bodyString, "\"30\":\"3\"", "\"30\":\"5\"")
+	bodyString = findAndReplace(bodyString, "\"30\":\"4\"", "\"30\":\"5\"")
 
 	modifiedBodyBuffer := bytes.NewBufferString(bodyString)
 
@@ -80,11 +80,6 @@ func modifyRequest(request *http.Request) *http.Request {
 	return request
 }
 
-func regexFindAndReplace(source string, pattern string, replacement string) string {
-	regex, err := regexp.Compile(pattern)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return regex.ReplaceAllString(source, replacement)
+func findAndReplace(source string, target string, replacement string) string {
+	return strings.Replace(source, target, replacement, 1)
 }
