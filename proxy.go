@@ -37,9 +37,12 @@ func checkUrl(request *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *htt
 }
 
 func viewResponse(response *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
-	log.Printf("Response: %s", response.Status)
-
-	return response
+    if response == nil {
+        log.Printf("Error: %s", ctx.Error)
+    } else {
+        log.Printf("Response: %s", response.Status)
+    }
+    return response
 }
 
 func modifyRequest(request *http.Request) *http.Request {
@@ -76,7 +79,7 @@ func modifyRequest(request *http.Request) *http.Request {
 	newBody := ioutil.NopCloser(modifiedBodyBuffer)
 
 	request.Body = newBody
-
+	request.ContentLength = int64(len(bodyString))
 	return request
 }
 
