@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -18,7 +19,13 @@ func main() {
 	// Only look at requests to the rockstar servers. Everything else is passed transparently
 	proxy.OnRequest(goproxy.DstHostIs("prod.ros.rockstargames.com")).DoFunc(checkUrl)
 	proxy.OnResponse(goproxy.DstHostIs("prod.ros.rockstargames.com")).DoFunc(viewResponse)
-	log.Fatal(http.ListenAndServe(":8228", proxy))
+
+	port := os.Getenv("TURBO_PORT")
+	if port == "" {
+		port = "8228"
+	}
+	log.Println("Listening on port " + port)
+	log.Fatal(http.ListenAndServe(":"+port, proxy))
 }
 
 func checkUrl(request *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
@@ -37,12 +44,12 @@ func checkUrl(request *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *htt
 }
 
 func viewResponse(response *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
-    if response == nil {
-        log.Printf("Error: %s", ctx.Error)
-    } else {
-        log.Printf("Response: %s", response.Status)
-    }
-    return response
+	if response == nil {
+		log.Printf("Error: %s", ctx.Error)
+	} else {
+		log.Printf("Response: %s", response.Status)
+	}
+	return response
 }
 
 func modifyRequest(request *http.Request) *http.Request {
