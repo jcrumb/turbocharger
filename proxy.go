@@ -16,9 +16,12 @@ func main() {
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.Verbose = false
 
-	// Only look at requests to the rockstar servers. Everything else is passed transparently
+	// Only look at requests to the rockstar servers. Everything else is denied to prevent abuse
 	proxy.OnRequest(goproxy.DstHostIs("prod.ros.rockstargames.com")).DoFunc(checkUrl)
 	proxy.OnResponse(goproxy.DstHostIs("prod.ros.rockstargames.com")).DoFunc(viewResponse)
+
+	matchRockstar, _ := regexp.Compile(".*rockstar*.")
+	proxy.OnRequest(goproxy.Not(goproxy.ReqHostMatches(matchRockstar))).DoFunc(denyRequest)
 
 	port := os.Getenv("TURBO_PORT")
 	if port == "" {
@@ -26,6 +29,13 @@ func main() {
 	}
 	log.Println("Listening on port " + port)
 	log.Fatal(http.ListenAndServe(":"+port, proxy))
+}
+
+func denyRequest(request *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+	log.Printf("Denying request for: %s", request.RequestURI)
+	return request, goproxy.NewResponse(request,
+		goproxy.ContentTypeText, http.StatusForbidden,
+		"Please disconnect from the turbocharger proxy")
 }
 
 func checkUrl(request *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
