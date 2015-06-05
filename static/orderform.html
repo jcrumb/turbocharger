@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Turbocharger order form - Now with more boost!</title>
+
+	<!-- Bootstrap files -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="jquery.serializejson.min.js"></script>
+	<script src="order.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<div class="navbar-brand">Turbocharger Ordering</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+
+		<!-- labels for info messages -->
+		<div class="alert alert-danger fade" id="errmessage" style="display:none">
+        <button type="button" class="close dismiss-button">&times;</a>
+        <strong>Error!</strong> The server could not process your order! Please refresh and try again
+		</div>
+
+	    <div class="alert alert-success fade" id='successmessage' style="display:none">
+	        <button type="button" class="close dismiss-button" style="text-align:right">&times;</button>
+	        <strong>Success!</strong> Your order has been placed. Please set your device proxy to turbo.jaycrumb.me port 8228 and place any order in iFruit to process!
+	    </div>
+
+		<form id="orderform">
+			<div class="form-group">
+				<label for="usernameInput">Username</label>
+				<input type="text" name="username" id="usernameInput" class="form-control" placeholder="Enter your R* Social Club Name">
+			</div>
+
+			<div class="form-group">
+				<label for="paintPrimary">Primary Paint</label>
+				<select name="paintPrimary" id="paintPrimary" class="form-control">
+					<option value="">No Change</option>
+					<option value="Brushed Black Steel">Brushed Black Steel</option>
+					<option value="Metallic Carbon Black">Metallic Carbon Black</option>
+					<option value="Classic Choc Brown">Classic Choc Brown</option>
+					<option value="Metallic Schafter Purple">Metallic Schafter Purple</option>
+					<option value="Metallic Hot Pink">Metallic Hot Pink</option>
+					<option value="Metallic Formula Red">Metallic Formula Red</option>
+					<option value="Metallic Blue">Metallic Blue</option>
+					<option value="Classic Ultra Blue">Classic Ultra Blue</option>
+					<option value="Classic Racing Green">Classic Racing Green</option>
+					<option value="Matte Lime Green">Matte Lime Green</option>
+					<option value="Classic Race Yellow">Classic Race Yellow</option>
+					<option value="Classic Orange">Classic Orange</option>
+					<option value="Metallic Gold">Metallic Gold</option>
+					<option value="Metallic Silver">Metallic Silver</option>
+					<option value="Chrome">Chrome</option>
+					<option value="Classic Ice White">Classic Ice White</option>
+					<option value="Black">Black</option>
+					<option value="Graphite">Graphite</option>
+					<option value="Anthracite Black">Anthracite Black</option>
+					<option value="Black Steel">Black Steel</option>
+					<option value="Dark Steel">Dark Steel</option>
+					<option value="Bluish Silver">Bluish Silver</option>
+					<option value="Rolled Steel">Rolled Steel</option>
+					<option value="Shadow Silver">Shadow Silver</option>
+					<option value="Stone Silver">Stone Silver</option>
+					<option value="Midnight Silver">Midnight Silver</option>
+					<option value="Cast Iron Silver">Cast Iron Silver</option>
+					<option value="Red">Red</option>
+					<option value="Torino Red">Torino Red</option>
+					<option value="Lava Red">Lava Red</option>
+					<option value="Blaze Red">Blaze Red</option>
+					<option value="Grace Red">Grace Red</option>
+					<option value="Garnet Red">Garnet Red</option>
+					<option value="Sunset Red">Sunset Red</option>
+					<option value="Cabernet Red">Cabernet Red</option>
+					<option value="Wine Red">Wine Red</option>
+					<option value="Candy Red">Candy Red</option>
+					<option value="Pfister Pink">Pfister Pink</option>
+					<option value="Salmon Pink">Salmon Pink</option>
+					<option value="Sunrise Orange">Sunrise Orange</option>
+					<option value="Orange">Orange</option>
+					<option value="Bright Orange">Bright Orange</option>
+					<option value="Bronze">Bronze</option>
+					<option value="Yellow">Yellow</option>
+					<option value="Race Yellow">Race Yellow</option>
+					<option value="Dew Yellow">Dew Yellow</option>
+					<option value="Dark Green">Dark Green</option>
+					<option value="Racing Green">Racing Green</option>
+					<option value="Sea Green">Sea Green</option>
+					<option value="Olive Green">Olive Green</option>
+					<option value="Bright Green">Bright Green</option>
+					<option value="Gasoline Green">Gasoline Green</option>
+					<option value="Lime Green">Lime Green</option>
+					<option value="Midnight Blue">Midnight Blue</option>
+					<option value="Galaxy Blue">Galaxy Blue</option>
+					<option value="Dark Blue">Dark Blue</option>
+					<option value="Saxon Blue">Saxon Blue</option>
+					<option value="Mariner Blue">Mariner Blue</option>
+					<option value="Harbor Blue">Harbor Blue</option>
+					<option value="Diamond Blue">Diamond Blue</option>
+					<option value="Surf Blue">Surf Blue</option>
+					<option value="Nautical Blue">Nautical Blue</option>
+					<option value="Racing Blue">Racing Blue</option>
+					<option value="Ultra Blue">Ultra Blue</option>
+					<option value="Light Blue">Light Blue</option>
+					<option value="Chocolate Brown">Chocolate Brown</option>
+					<option value="Bison Brown">Bison Brown</option>
+					<option value="Creek Brown">Creek Brown</option>
+					<option value="Feltzer Brown">Feltzer Brown</option>
+					<option value="Maple Brown">Maple Brown</option>
+					<option value="Beechwood Brown">Beechwood Brown</option>
+					<option value="Sienna Brown">Sienna Brown</option>
+					<option value="Saddle Brown">Saddle Brown</option>
+					<option value="Moss Brown">Moss Brown</option>
+					<option value="Woodbeech Brown">Woodbeech Brown</option>
+					<option value="Straw Brown">Straw Brown</option>
+					<option value="Sandy Brown">Sandy Brown</option>
+					<option value="Bleached Brown">Bleached Brown</option>
+					<option value="Spinnaker Purple">Spinnaker Purple</option>
+					<option value="Midnight Purple">Midnight Purple</option>
+					<option value="Bright Purple">Bright Purple</option>
+					<option value="Cream">Cream</option>
+					<option value="Ice White">Ice White</option>
+					<option value="Frost White">Frost White</option>
+					<option value="Black2">Black2</option>
+					<option value="Carbon Black">Carbon Black</option>
+					<option value="Graphite2">Graphite2</option>
+					<option value="Anthracite Black2">Anthracite Black2</option>
+					<option value="Black Steel2">Black Steel2</option>
+					<option value="Dark Steel2">Dark Steel2</option>
+					<option value="Silver2">Silver2</option>
+					<option value="Bluish Silver2">Bluish Silver2</option>
+					<option value="Rolled Steel2">Rolled Steel2</option>
+					<option value="Shadow Silver2">Shadow Silver2</option>
+					<option value="Stone Silver2">Stone Silver2</option>
+					<option value="Midnight Silver2">Midnight Silver2</option>
+					<option value="Cast Iron Silver2">Cast Iron Silver2</option>
+					<option value="Red2">Red2</option>
+					<option value="Torino Red2">Torino Red2</option>
+					<option value="Formula Red2">Formula Red2</option>
+					<option value="Lava Red2">Lava Red2</option>
+					<option value="Blaze Red2">Blaze Red2</option>
+					<option value="Grace Red2">Grace Red2</option>
+					<option value="Garnet Red2">Garnet Red2</option>
+					<option value="Sunset Red2">Sunset Red2</option>
+					<option value="Cabernet Red2">Cabernet Red2</option>
+					<option value="Wine Red2">Wine Red2</option>
+					<option value="Candy Red2">Candy Red2</option>
+					<option value="Hot Pink2">Hot Pink2</option>
+					<option value="Pfister Pink2">Pfister Pink2</option>
+					<option value="Salmon Pink2">Salmon Pink2</option>
+					<option value="Sunrise Orange2">Sunrise Orange2</option>
+					<option value="Bright Orange2">Bright Orange2</option>
+					<option value="Gold2">Gold2</option>
+					<option value="Bronze2">Bronze2</option>
+					<option value="Yellow2">Yellow2</option>
+					<option value="Dew Yellow2">Dew Yellow2</option>
+					<option value="Dark Green2">Dark Green2</option>
+					<option value="Sea Green2">Sea Green2</option>
+					<option value="Olive Green2">Olive Green2</option>
+					<option value="Bright Green2">Bright Green2</option>
+					<option value="Gasoline Green2">Gasoline Green2</option>
+					<option value="Lime Green2">Lime Green2</option>
+					<option value="Midnight Blue2">Midnight Blue2</option>
+					<option value="Galaxy Blue2">Galaxy Blue2</option>
+					<option value="Dark Blue2">Dark Blue2</option>
+					<option value="Saxon Blue2">Saxon Blue2</option>
+					<option value="Blue2">Blue2</option>
+					<option value="Mariner Blue2">Mariner Blue2</option>
+					<option value="Harbor Blue2">Harbor Blue2</option>
+					<option value="Diamond Blue2">Diamond Blue2</option>
+					<option value="Surf Blue2">Surf Blue2</option>
+					<option value="Nautical Blue2">Nautical Blue2</option>
+					<option value="Racing Blue2">Racing Blue2</option>
+					<option value="Light Blue2">Light Blue2</option>
+					<option value="Bison Brown2">Bison Brown2</option>
+					<option value="Creek Brown2">Creek Brown2</option>
+					<option value="Feltzer Brown2">Feltzer Brown2</option>
+					<option value="Maple Brown2">Maple Brown2</option>
+					<option value="Beechwood Brown2">Beechwood Brown2</option>
+					<option value="Sienna Brown2">Sienna Brown2</option>
+					<option value="Saddle Brown2">Saddle Brown2</option>
+					<option value="Moss Brown2">Moss Brown2</option>
+					<option value="Woodbeech Brown2">Woodbeech Brown2</option>
+					<option value="Straw Brown2">Straw Brown2</option>
+					<option value="Sandy Brown2">Sandy Brown2</option>
+					<option value="Bleached Brown2">Bleached Brown2</option>
+					<option value="Schafter Purple2">Schafter Purple2</option>
+					<option value="Spinnaker Purple2">Spinnaker Purple2</option>
+					<option value="Midnight Purple2">Midnight Purple2</option>
+					<option value="Bright Purple2">Bright Purple2</option>
+					<option value="Cream2">Cream2</option>
+					<option value="Frost White2">Frost White2</option>
+					<option value="Black3">Black3</option>
+					<option value="Gray3">Gray3</option>
+					<option value="Light Gray2">Light Gray2</option>
+					<option value="Ice White2">Ice White2</option>
+					<option value="Blue3">Blue3</option>
+					<option value="Dark Blue3">Dark Blue3</option>
+					<option value="Midnight Blue3">Midnight Blue3</option>
+					<option value="Midnight Purple3">Midnight Purple3</option>
+					<option value="Schafter Purple">Schafter Purple</option>
+					<option value="Red3">Red3</option>
+					<option value="Dark Red">Dark Red</option>
+					<option value="Orange3">Orange3</option>
+					<option value="Yellow3">Yellow3</option>
+					<option value="Green">Green</option>
+					<option value="Forest Green">Forest Green</option>
+					<option value="Foliage Green">Foliage Green</option>
+					<option value="Olive Drab">Olive Drab</option>
+					<option value="Dark Earth">Dark Earth</option>
+					<option value="Desert Tan">Desert Tan</option>
+					<option value="Brushed Steel">Brushed Steel</option>
+					<option value="Brushed Black Steel2">Brushed Black Steel2</option>
+					<option value="Brushed Aluminum">Brushed Aluminum</option>
+					<option value="Pure Gold">Pure Gold</option>
+					<option value="Brushed Gold">Brushed Gold</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="paintSecondary">Secondary Paint</label>
+				<select name="paintSecondary" id="paintSecondary" class="form-control">
+					<option value="">No Change</option>
+					<option value="Brushed Black Steel">Brushed Black Steel</option>
+					<option value="Metallic Carbon Black">Metallic Carbon Black</option>
+					<option value="Classic Choc Brown">Classic Choc Brown</option>
+					<option value="Metallic Schafter Purple">Metallic Schafter Purple</option>
+					<option value="Metallic Hot Pink">Metallic Hot Pink</option>
+					<option value="Metallic Formula Red">Metallic Formula Red</option>
+					<option value="Metallic Blue">Metallic Blue</option>
+					<option value="Classic Ultra Blue">Classic Ultra Blue</option>
+					<option value="Classic Racing Green">Classic Racing Green</option>
+					<option value="Matte Lime Green">Matte Lime Green</option>
+					<option value="Classic Race Yellow">Classic Race Yellow</option>
+					<option value="Classic Orange">Classic Orange</option>
+					<option value="Metallic Gold">Metallic Gold</option>
+					<option value="Metallic Silver">Metallic Silver</option>
+					<option value="Chrome">Chrome</option>
+					<option value="Classic Ice White">Classic Ice White</option>
+					<option value="Black">Black</option>
+					<option value="Graphite">Graphite</option>
+					<option value="Anthracite Black">Anthracite Black</option>
+					<option value="Black Steel">Black Steel</option>
+					<option value="Dark Steel">Dark Steel</option>
+					<option value="Bluish Silver">Bluish Silver</option>
+					<option value="Rolled Steel">Rolled Steel</option>
+					<option value="Shadow Silver">Shadow Silver</option>
+					<option value="Stone Silver">Stone Silver</option>
+					<option value="Midnight Silver">Midnight Silver</option>
+					<option value="Cast Iron Silver">Cast Iron Silver</option>
+					<option value="Red">Red</option>
+					<option value="Torino Red">Torino Red</option>
+					<option value="Lava Red">Lava Red</option>
+					<option value="Blaze Red">Blaze Red</option>
+					<option value="Grace Red">Grace Red</option>
+					<option value="Garnet Red">Garnet Red</option>
+					<option value="Sunset Red">Sunset Red</option>
+					<option value="Cabernet Red">Cabernet Red</option>
+					<option value="Wine Red">Wine Red</option>
+					<option value="Candy Red">Candy Red</option>
+					<option value="Pfister Pink">Pfister Pink</option>
+					<option value="Salmon Pink">Salmon Pink</option>
+					<option value="Sunrise Orange">Sunrise Orange</option>
+					<option value="Orange">Orange</option>
+					<option value="Bright Orange">Bright Orange</option>
+					<option value="Bronze">Bronze</option>
+					<option value="Yellow">Yellow</option>
+					<option value="Race Yellow">Race Yellow</option>
+					<option value="Dew Yellow">Dew Yellow</option>
+					<option value="Dark Green">Dark Green</option>
+					<option value="Racing Green">Racing Green</option>
+					<option value="Sea Green">Sea Green</option>
+					<option value="Olive Green">Olive Green</option>
+					<option value="Bright Green">Bright Green</option>
+					<option value="Gasoline Green">Gasoline Green</option>
+					<option value="Lime Green">Lime Green</option>
+					<option value="Midnight Blue">Midnight Blue</option>
+					<option value="Galaxy Blue">Galaxy Blue</option>
+					<option value="Dark Blue">Dark Blue</option>
+					<option value="Saxon Blue">Saxon Blue</option>
+					<option value="Mariner Blue">Mariner Blue</option>
+					<option value="Harbor Blue">Harbor Blue</option>
+					<option value="Diamond Blue">Diamond Blue</option>
+					<option value="Surf Blue">Surf Blue</option>
+					<option value="Nautical Blue">Nautical Blue</option>
+					<option value="Racing Blue">Racing Blue</option>
+					<option value="Ultra Blue">Ultra Blue</option>
+					<option value="Light Blue">Light Blue</option>
+					<option value="Chocolate Brown">Chocolate Brown</option>
+					<option value="Bison Brown">Bison Brown</option>
+					<option value="Creek Brown">Creek Brown</option>
+					<option value="Feltzer Brown">Feltzer Brown</option>
+					<option value="Maple Brown">Maple Brown</option>
+					<option value="Beechwood Brown">Beechwood Brown</option>
+					<option value="Sienna Brown">Sienna Brown</option>
+					<option value="Saddle Brown">Saddle Brown</option>
+					<option value="Moss Brown">Moss Brown</option>
+					<option value="Woodbeech Brown">Woodbeech Brown</option>
+					<option value="Straw Brown">Straw Brown</option>
+					<option value="Sandy Brown">Sandy Brown</option>
+					<option value="Bleached Brown">Bleached Brown</option>
+					<option value="Spinnaker Purple">Spinnaker Purple</option>
+					<option value="Midnight Purple">Midnight Purple</option>
+					<option value="Bright Purple">Bright Purple</option>
+					<option value="Cream">Cream</option>
+					<option value="Ice White">Ice White</option>
+					<option value="Frost White">Frost White</option>
+					<option value="Black2">Black2</option>
+					<option value="Carbon Black">Carbon Black</option>
+					<option value="Graphite2">Graphite2</option>
+					<option value="Anthracite Black2">Anthracite Black2</option>
+					<option value="Black Steel2">Black Steel2</option>
+					<option value="Dark Steel2">Dark Steel2</option>
+					<option value="Silver2">Silver2</option>
+					<option value="Bluish Silver2">Bluish Silver2</option>
+					<option value="Rolled Steel2">Rolled Steel2</option>
+					<option value="Shadow Silver2">Shadow Silver2</option>
+					<option value="Stone Silver2">Stone Silver2</option>
+					<option value="Midnight Silver2">Midnight Silver2</option>
+					<option value="Cast Iron Silver2">Cast Iron Silver2</option>
+					<option value="Red2">Red2</option>
+					<option value="Torino Red2">Torino Red2</option>
+					<option value="Formula Red2">Formula Red2</option>
+					<option value="Lava Red2">Lava Red2</option>
+					<option value="Blaze Red2">Blaze Red2</option>
+					<option value="Grace Red2">Grace Red2</option>
+					<option value="Garnet Red2">Garnet Red2</option>
+					<option value="Sunset Red2">Sunset Red2</option>
+					<option value="Cabernet Red2">Cabernet Red2</option>
+					<option value="Wine Red2">Wine Red2</option>
+					<option value="Candy Red2">Candy Red2</option>
+					<option value="Hot Pink2">Hot Pink2</option>
+					<option value="Pfister Pink2">Pfister Pink2</option>
+					<option value="Salmon Pink2">Salmon Pink2</option>
+					<option value="Sunrise Orange2">Sunrise Orange2</option>
+					<option value="Bright Orange2">Bright Orange2</option>
+					<option value="Gold2">Gold2</option>
+					<option value="Bronze2">Bronze2</option>
+					<option value="Yellow2">Yellow2</option>
+					<option value="Dew Yellow2">Dew Yellow2</option>
+					<option value="Dark Green2">Dark Green2</option>
+					<option value="Sea Green2">Sea Green2</option>
+					<option value="Olive Green2">Olive Green2</option>
+					<option value="Bright Green2">Bright Green2</option>
+					<option value="Gasoline Green2">Gasoline Green2</option>
+					<option value="Lime Green2">Lime Green2</option>
+					<option value="Midnight Blue2">Midnight Blue2</option>
+					<option value="Galaxy Blue2">Galaxy Blue2</option>
+					<option value="Dark Blue2">Dark Blue2</option>
+					<option value="Saxon Blue2">Saxon Blue2</option>
+					<option value="Blue2">Blue2</option>
+					<option value="Mariner Blue2">Mariner Blue2</option>
+					<option value="Harbor Blue2">Harbor Blue2</option>
+					<option value="Diamond Blue2">Diamond Blue2</option>
+					<option value="Surf Blue2">Surf Blue2</option>
+					<option value="Nautical Blue2">Nautical Blue2</option>
+					<option value="Racing Blue2">Racing Blue2</option>
+					<option value="Light Blue2">Light Blue2</option>
+					<option value="Bison Brown2">Bison Brown2</option>
+					<option value="Creek Brown2">Creek Brown2</option>
+					<option value="Feltzer Brown2">Feltzer Brown2</option>
+					<option value="Maple Brown2">Maple Brown2</option>
+					<option value="Beechwood Brown2">Beechwood Brown2</option>
+					<option value="Sienna Brown2">Sienna Brown2</option>
+					<option value="Saddle Brown2">Saddle Brown2</option>
+					<option value="Moss Brown2">Moss Brown2</option>
+					<option value="Woodbeech Brown2">Woodbeech Brown2</option>
+					<option value="Straw Brown2">Straw Brown2</option>
+					<option value="Sandy Brown2">Sandy Brown2</option>
+					<option value="Bleached Brown2">Bleached Brown2</option>
+					<option value="Schafter Purple2">Schafter Purple2</option>
+					<option value="Spinnaker Purple2">Spinnaker Purple2</option>
+					<option value="Midnight Purple2">Midnight Purple2</option>
+					<option value="Bright Purple2">Bright Purple2</option>
+					<option value="Cream2">Cream2</option>
+					<option value="Frost White2">Frost White2</option>
+					<option value="Black3">Black3</option>
+					<option value="Gray3">Gray3</option>
+					<option value="Light Gray2">Light Gray2</option>
+					<option value="Ice White2">Ice White2</option>
+					<option value="Blue3">Blue3</option>
+					<option value="Dark Blue3">Dark Blue3</option>
+					<option value="Midnight Blue3">Midnight Blue3</option>
+					<option value="Midnight Purple3">Midnight Purple3</option>
+					<option value="Schafter Purple">Schafter Purple</option>
+					<option value="Red3">Red3</option>
+					<option value="Dark Red">Dark Red</option>
+					<option value="Orange3">Orange3</option>
+					<option value="Yellow3">Yellow3</option>
+					<option value="Green">Green</option>
+					<option value="Forest Green">Forest Green</option>
+					<option value="Foliage Green">Foliage Green</option>
+					<option value="Olive Drab">Olive Drab</option>
+					<option value="Dark Earth">Dark Earth</option>
+					<option value="Desert Tan">Desert Tan</option>
+					<option value="Brushed Steel">Brushed Steel</option>
+					<option value="Brushed Black Steel2">Brushed Black Steel2</option>
+					<option value="Brushed Aluminum">Brushed Aluminum</option>
+					<option value="Pure Gold">Pure Gold</option>
+					<option value="Brushed Gold">Brushed Gold</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="turbo">Turbo Tuning</label>
+				<select name="turbo" id="turbo" class="form-control">
+					<option value="Applied">Applied</option>
+					<option value="">Stock</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="lights">Headlights</label>
+				<select name="lights" id="lights" class="form-control">
+						<option value="">Stock</option>
+						<option value="HID">HID</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="tires">Bulletproof Tires</label>
+				<select name="bulletproofTires" id="bulletproofTires" class="form-control">
+						<option value="Bulletproof">Applied</option>
+						<option value="">Stock</option>
+				</select>
+			</div>
+
+			<div class="form-group"><label for="brakes">Brakes</label>
+				<select name="brakes" id="brakes" class='form-control'>
+					<option value="Max">Max</option>
+					<option value="">Stock</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="emstune">EMS Tune</label>
+				<select name="emsTune" id="emsTune" class="form-control">
+					<option value="Max">Max</option>
+					<option value="">Stock</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="windowTint">Window Tint</label>
+				<select name="windowTint" id="windowTint" class="form-control">
+					<option value="">No Change</option>
+					<option value="Limo">Limo</option>
+					<option value="Light Smoke">Light Smoke</option>
+					<option value="Dark Smoke">Dark Smoke</option>
+					<option value="Green">Green</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="armor">Armor</label>
+				<select name="armor" id="armor" class="form-control">
+					<option value="Max">Max</option>
+					<option value="">Stock</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="suspension">Suspension</label>
+				<select name="suspension" id="suspension" class="form-control">
+					<option value="">No Change</option>
+					<option value="Lowered">Lowered</option>
+					<option value="Street">Street</option>
+					<option value="Sport">Sport</option>
+					<option value="Competition">Competition</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="plateText">Plate Text (8 Characters or less)</label>
+				<input type="text" name="plateText" id="plateText" class="form-control" placeholder="Optional, no change if blank">
+			</div>
+
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+
+	
+</body>
+</html>

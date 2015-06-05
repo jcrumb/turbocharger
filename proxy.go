@@ -7,12 +7,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"regexp"
 	"strings"
 )
 
-func main() {
+func startProxy(port string) {
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.Verbose = false
 
@@ -23,11 +22,7 @@ func main() {
 	matchRockstar, _ := regexp.Compile(".*rockstar*.")
 	proxy.OnRequest(goproxy.Not(goproxy.ReqHostMatches(matchRockstar))).DoFunc(denyRequest)
 
-	port := os.Getenv("TURBO_PORT")
-	if port == "" {
-		port = "8228"
-	}
-	log.Println("Listening on port " + port)
+	log.Println("Proxy listening on port " + port)
 	log.Fatal(http.ListenAndServe(":"+port, proxy))
 }
 
@@ -70,25 +65,18 @@ func modifyRequest(request *http.Request) *http.Request {
 		log.Fatal(err)
 	}
 
-	log.Printf("Body: %s", body)
+	log.Printf("Body:\n%s", body)
 
-	// Add armour, full ecu tune, brakes, and turbo
-	// See https://docs.google.com/a/toxicedge.com/spreadsheet/ccc?key=0AixUkyNxN55gdF83LWI1MVFaeE9CY0ptdFEyYVFPV3c&usp=sharing#gid=0
-	// for information on the fields/values required for this
-	bodyString = findAndReplace(bodyString, "\"11\":\"0\"", "\"11\":\"1\"")
-	bodyString = findAndReplace(bodyString, "\"31\":\"0\"", "\"31\":\"1\"")
-	bodyString = findAndReplace(bodyString, "\"12\":\"0\"", "\"12\":\"4\"")
-	bodyString = findAndReplace(bodyString, "\"12\":\"1\"", "\"12\":\"4\"")
-	bodyString = findAndReplace(bodyString, "\"12\":\"2\"", "\"12\":\"4\"")
-	bodyString = findAndReplace(bodyString, "\"12\":\"3\"", "\"12\":\"4\"")
-	bodyString = findAndReplace(bodyString, "\"13\":\"0\"", "\"13\":\"3\"")
-	bodyString = findAndReplace(bodyString, "\"13\":\"1\"", "\"13\":\"3\"")
-	bodyString = findAndReplace(bodyString, "\"13\":\"2\"", "\"13\":\"3\"")
-	bodyString = findAndReplace(bodyString, "\"30\":\"0\"", "\"30\":\"5\"")
-	bodyString = findAndReplace(bodyString, "\"30\":\"1\"", "\"30\":\"5\"")
-	bodyString = findAndReplace(bodyString, "\"30\":\"2\"", "\"30\":\"5\"")
-	bodyString = findAndReplace(bodyString, "\"30\":\"3\"", "\"30\":\"5\"")
-	bodyString = findAndReplace(bodyString, "\"30\":\"4\"", "\"30\":\"5\"")
+	// The body has some extra lines ahead of the actual json data we want
+	// So split on newlines, and then join back again after
+	lines := strings.Split(bodyString, "\n")
+
+	orderStruct := rockstarOrderFromString(lines[4])
+	orderStruct = applyOrder(orderStruct)
+	jsonString := rockstarOrderToString(orderStruct)
+
+	lines[4] = jsonString
+	bodyString = strings.Join(lines, "\n")
 
 	modifiedBodyBuffer := bytes.NewBufferString(bodyString)
 
