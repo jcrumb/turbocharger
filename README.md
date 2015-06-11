@@ -1,3 +1,6 @@
+# Update:
+This exploit has now been patched, it was fun while it lasted folks!
+
 # turbocharger
 GTA Online HTTP Proxy for full armour, tune, brakes, and turbo regardless of level/unlocks
 
