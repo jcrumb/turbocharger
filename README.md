@@ -1,5 +1,5 @@
 # Update:
-This exploit has now been patched, it was fun while it lasted folks!
+There appears to be some issues with the ordering process. The rockstar servers will sometimes respond with 201 CREATED and then never push the notification to the game. This only affects some users, and only happens some of the time. It never seems to happen when not using the proxy.
 
 # turbocharger
 GTA Online HTTP Proxy for full armour, tune, brakes, and turbo regardless of level/unlocks
